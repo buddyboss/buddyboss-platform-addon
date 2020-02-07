@@ -97,7 +97,7 @@ if ( ! function_exists( 'MYPLUGIN_get_settings_fields' ) ) {
 		$fields['MYPLUGIN_settings_section'] = array(
 
 			'MYPLUGIN_field' => array(
-				'title'             => __( 'This Field', 'buddyboss-platform-addon' ),
+				'title'             => __( 'Add-on Field', 'buddyboss-platform-addon' ),
 				'callback'          => 'MYPLUGIN_settings_callback_field',
 				'sanitize_callback' => 'absint',
 				'args'              => array(),
