@@ -97,7 +97,7 @@ if ( ! function_exists( 'MYPLUGIN_get_settings_fields' ) ) {
 		$fields['MYPLUGIN_settings_section'] = array(
 
 			'MYPLUGIN_field' => array(
-				'title'             => __( 'Add-on Field', 'buddyboss-platform-addon' ),
+				'title'             => __( 'This Field', 'buddyboss-platform-addon' ),
 				'callback'          => 'MYPLUGIN_settings_callback_field',
 				'sanitize_callback' => 'absint',
 				'args'              => array(),
@@ -119,7 +119,7 @@ if ( ! function_exists( 'MYPLUGIN_settings_callback_field' ) ) {
 			<?php checked( MYPLUGIN_is_addon_field_enabled() ); ?>
         />
         <label for="MYPLUGIN_field">
-			<?php _e( 'Allow add on field', 'buddyboss-platform-addon' ); ?>
+			<?php _e( 'Enable this option', 'buddyboss-platform-addon' ); ?>
         </label>
 		<?php
 	}
@@ -149,10 +149,10 @@ if ( ! function_exists( 'MYPLUGIN_is_addon_field_enabled' ) ) {
 if ( ! function_exists( 'MYPLUGIN_bp_admin_setting_general_register_fields' ) ) {
     function MYPLUGIN_bp_admin_setting_general_register_fields( $setting ) {
 	    // Main General Settings Section
-	    $setting->add_section( 'MYPLUGIN_addon', __( 'My add on Settings', 'buddyboss-platform-addon' ) );
+	    $setting->add_section( 'MYPLUGIN_addon', __( 'Add-on Settings', 'buddyboss-platform-addon' ) );
 
 	    $args          = array();
-	    $setting->add_field( 'bp-enable-my-addon', __( 'My add on', 'buddyboss-platform-addon' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
+	    $setting->add_field( 'bp-enable-my-addon', __( 'My Field', 'buddyboss-platform-addon' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
     }
 
 	add_action( 'bp_admin_setting_general_register_fields', 'MYPLUGIN_bp_admin_setting_general_register_fields' );
@@ -163,7 +163,7 @@ if ( ! function_exists( 'MYPLUGIN_admin_general_setting_callback_my_addon' ) ) {
 		?>
         <input id="bp-enable-my-addon" name="bp-enable-my-addon" type="checkbox"
                value="1" <?php checked( MYPLUGIN_enable_my_addon() ); ?> />
-        <label for="bp-enable-my-addon"><?php _e( 'Allow my add on setting', 'buddyboss-platform-addon' ); ?></label>
+        <label for="bp-enable-my-addon"><?php _e( 'Enable my option', 'buddyboss-platform-addon' ); ?></label>
 		<?php
 	}
 }
