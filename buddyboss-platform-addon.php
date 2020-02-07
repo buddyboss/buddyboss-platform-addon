@@ -154,7 +154,7 @@ function MYPLUGIN_is_addon_field_enabled( $default = 1 ) {
  */
 add_action( 'bp_admin_setting_general_register_fields', function( $setting ){
 	// Main General Settings Section
-	$setting->add_section( 'bp_my_addon', __( 'Add-on Settings' ) );
+	$setting->add_section( 'MYPLUGIN_addon', __( 'Add-on Settings' ) );
 
 	$args          = array();
 	$setting->add_field( 'bp-enable-my-addon', __( 'My Field' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
