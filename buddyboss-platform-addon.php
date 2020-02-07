@@ -12,7 +12,7 @@
  */
 
 /**
- * This files should always remain compatible with the minimum version of
+ * This file should always remain compatible with the minimum version of
  * PHP supported by WordPress.
  */
 
@@ -98,7 +98,7 @@ function MYPLUGIN_get_settings_fields_for_section( $section_id = '' ) {
 /**
  * Get all of the settings fields.
  *
- * @since BuddyBoss 1.0.0
+ * @since BuddyBoss Platform Add-on 1.0.0
  * @return array
  */
 function MYPLUGIN_get_settings_fields() {

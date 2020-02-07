@@ -4,7 +4,7 @@
  *
  * @package BuddyBoss\Core
  *
- * @since BuddyBoss 1.0.0
+ * @since BuddyBoss Platform Add-on 1.0.0
  */
 
 // Exit if accessed directly.
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Main Search Settings class.
  *
- * @since BuddyBoss 1.0.0
+ * @since BuddyBoss Platform Add-on 1.0.0
  */
 class MYPLUGIN_Admin_Setting_Media extends BP_Admin_Setting_tab {
 
