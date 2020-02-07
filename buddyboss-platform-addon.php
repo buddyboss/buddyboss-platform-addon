@@ -19,25 +19,25 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! function_exists( 'buddyboss_addon_admin_menus' ) ) {
+if ( ! function_exists( 'MYPLUGIN_admin_menus' ) ) {
 
-    function buddyboss_addon_admin_menus() {
+    function MYPLUGIN_admin_menus() {
 	    add_submenu_page(
 		    'bp-settings',
 		    __( 'Add On', 'buddyboss' ),
 		    __( 'Add On', 'buddyboss' ),
 		    'manage_options',
 		    'bp-addon',
-		    'buddyboss_addon_screen'
+		    'MYPLUGIN_screen'
 	    );
     }
 
     add_action( 'bp_init', function() {
-	    add_action( bp_core_admin_hook(), 'buddyboss_addon_admin_menus', 99 );
+	    add_action( bp_core_admin_hook(), 'MYPLUGIN_admin_menus', 99 );
     } );
 }
 
-function buddyboss_addon_screen() {
+function MYPLUGIN_screen() {
 	?>
     <div class="wrap">
         <h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Addon', 'buddyboss' ) ); ?></h2>
@@ -59,40 +59,40 @@ function buddyboss_addon_screen() {
 	<?php
 }
 
-function buddyboss_addon_admin_enqueue_script() {
+function MYPLUGIN_admin_enqueue_script() {
 	wp_enqueue_style( 'buddyboss-addon-admin-css', plugin_dir_url( __FILE__ ) . 'style.css' );
 }
-add_action( 'admin_enqueue_scripts', 'buddyboss_addon_admin_enqueue_script' );
+add_action( 'admin_enqueue_scripts', 'MYPLUGIN_admin_enqueue_script' );
 
-function buddyboss_addon_register_addon_settings() {
+function MYPLUGIN_register_addon_settings() {
 	require_once 'buddyboss-addon-admin-setting.php';
 }
 
-add_action( 'bp_register_admin_settings', 'buddyboss_addon_register_addon_settings', 99 );
+add_action( 'bp_register_admin_settings', 'MYPLUGIN_register_addon_settings', 99 );
 
-function buddyboss_addon_get_settings_sections() {
+function MYPLUGIN_get_settings_sections() {
 
 	$settings = array(
-		'buddyboss_addon_settings_section' => array(
+		'MYPLUGIN_settings_section' => array(
 			'page'  => 'addon',
 			'title' => __( 'Add On Settings', 'buddyboss' ),
 		),
 	);
 
-	return (array) apply_filters( 'buddyboss_addon_get_settings_sections', $settings );
+	return (array) apply_filters( 'MYPLUGIN_get_settings_sections', $settings );
 }
 
-function buddyboss_addon_get_settings_fields_for_section( $section_id = '' ) {
+function MYPLUGIN_get_settings_fields_for_section( $section_id = '' ) {
 
 	// Bail if section is empty
 	if ( empty( $section_id ) ) {
 		return false;
 	}
 
-	$fields = buddyboss_addon_get_settings_fields();
+	$fields = MYPLUGIN_get_settings_fields();
 	$retval = isset( $fields[ $section_id ] ) ? $fields[ $section_id ] : false;
 
-	return (array) apply_filters( 'buddyboss_addon_get_settings_fields_for_section', $retval, $section_id );
+	return (array) apply_filters( 'MYPLUGIN_get_settings_fields_for_section', $retval, $section_id );
 }
 
 /**
@@ -101,40 +101,40 @@ function buddyboss_addon_get_settings_fields_for_section( $section_id = '' ) {
  * @since BuddyBoss 1.0.0
  * @return array
  */
-function buddyboss_addon_get_settings_fields() {
+function MYPLUGIN_get_settings_fields() {
 
 	$fields = array();
 
-	$fields['buddyboss_addon_settings_section'] = array(
+	$fields['MYPLUGIN_settings_section'] = array(
 
-		'buddyboss_addon_field'  => array(
+		'MYPLUGIN_field'  => array(
 			'title'             => __( 'Add On Field' ),
-			'callback'          => 'buddyboss_addon_settings_callback_field',
+			'callback'          => 'MYPLUGIN_settings_callback_field',
 			'sanitize_callback' => 'absint',
 			'args'              => array(),
 		),
 
 	);
 
-	return (array) apply_filters( 'buddyboss_addon_get_settings_fields', $fields );
+	return (array) apply_filters( 'MYPLUGIN_get_settings_fields', $fields );
 }
 
-function buddyboss_addon_settings_callback_field() {
+function MYPLUGIN_settings_callback_field() {
 	?>
-    <input name="buddyboss_addon_field"
-           id="buddyboss_addon_field"
+    <input name="MYPLUGIN_field"
+           id="MYPLUGIN_field"
            type="checkbox"
            value="1"
-		<?php checked( buddyboss_addon_is_addon_field_enabled() ); ?>
+		<?php checked( MYPLUGIN_is_addon_field_enabled() ); ?>
     />
-    <label for="buddyboss_addon_field">
+    <label for="MYPLUGIN_field">
 		<?php _e( 'Allow add on field' ); ?>
     </label>
 	<?php
 }
 
-function buddyboss_addon_is_addon_field_enabled( $default = 1 ) {
-	return (bool) apply_filters( 'buddyboss_addon_is_addon_field_enabled', (bool) get_option( 'buddyboss_addon_field', $default ) );
+function MYPLUGIN_is_addon_field_enabled( $default = 1 ) {
+	return (bool) apply_filters( 'MYPLUGIN_is_addon_field_enabled', (bool) get_option( 'MYPLUGIN_field', $default ) );
 }
 
 /***************************** Add section in current settings ***************************************/
@@ -157,17 +157,17 @@ add_action( 'bp_admin_setting_general_register_fields', function( $setting ){
 	$setting->add_section( 'bp_my_addon', __( 'My add on Settings' ) );
 
 	$args          = array();
-	$setting->add_field( 'bp-enable-my-addon', __( 'My add on' ), 'buddyboss_addon_admin_general_setting_callback_my_addon', 'intval', $args );
+	$setting->add_field( 'bp-enable-my-addon', __( 'My add on' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
 } );
 
 
-function buddyboss_addon_admin_general_setting_callback_my_addon() {
+function MYPLUGIN_admin_general_setting_callback_my_addon() {
 	?>
-    <input id="bp-enable-my-addon" name="bp-enable-my-addon" type="checkbox" value="1" <?php checked( buddyboss_addon_enable_my_addon() ); ?> />
+    <input id="bp-enable-my-addon" name="bp-enable-my-addon" type="checkbox" value="1" <?php checked( MYPLUGIN_enable_my_addon() ); ?> />
     <label for="bp-enable-my-addon"><?php _e( 'Allow my add on setting', 'buddyboss' ); ?></label>
     <?php
 }
 
-function buddyboss_addon_enable_my_addon( $default = false ) {
-	return (bool) apply_filters( 'buddyboss_addon_enable_my_addon', (bool) bp_get_option( 'bp-enable-my-addon', $default ) );
+function MYPLUGIN_enable_my_addon( $default = false ) {
+	return (bool) apply_filters( 'MYPLUGIN_enable_my_addon', (bool) bp_get_option( 'bp-enable-my-addon', $default ) );
 }

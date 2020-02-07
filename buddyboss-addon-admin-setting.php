@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since BuddyBoss 1.0.0
  */
-class BP_Addon_Admin_Setting_Media extends BP_Admin_Setting_tab {
+class MYPLUGIN_Admin_Setting_Media extends BP_Admin_Setting_tab {
 
 	public function initialize() {
 
@@ -29,12 +29,12 @@ class BP_Addon_Admin_Setting_Media extends BP_Admin_Setting_tab {
 	}
 
 	public function register_fields() {
-		$sections = buddyboss_addon_get_settings_sections();
+		$sections = MYPLUGIN_get_settings_sections();
 
 		foreach ( (array) $sections as $section_id => $section ) {
 
 			// Only add section and fields if section has fields
-			$fields = buddyboss_addon_get_settings_fields_for_section( $section_id );
+			$fields = MYPLUGIN_get_settings_fields_for_section( $section_id );
 
 			if ( empty( $fields ) ) {
 				continue;
@@ -61,4 +61,4 @@ class BP_Addon_Admin_Setting_Media extends BP_Admin_Setting_tab {
 
 }
 
-return new BP_Addon_Admin_Setting_Media;
+return new MYPLUGIN_Admin_Setting_Media;
