@@ -148,7 +148,7 @@ if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 
 	function MYPLUGIN_BB_Platform_install_bb_platform_notice() {
 		echo '<div class="error fade"><p style="line-height: 150%">';
-		_e('<strong>BuddyBoss Platform Add-on</strong></a> requires the BuddyBoss Platform plugin to work. Please <a href="https://buddyboss.com/platform/">install BuddyBoss Platform</a> first.', 'buddyboss-platform-addon');
+		_e('<strong>BuddyBoss Platform Add-on</strong> requires the BuddyBoss Platform plugin to work. Please <a href="https://buddyboss.com/platform/">install BuddyBoss Platform</a> first.', 'buddyboss-platform-addon');
 		echo '</p></div>';
 	}
 
