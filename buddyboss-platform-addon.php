@@ -59,8 +59,13 @@ function buddyboss_addon_screen() {
 	<?php
 }
 
+function buddyboss_addon_admin_enqueue_script() {
+	wp_enqueue_style( 'buddyboss-addon-admin-css', plugin_dir_url( __FILE__ ) . 'style.css' );
+}
+add_action( 'admin_enqueue_scripts', 'buddyboss_addon_admin_enqueue_script' );
+
 function buddyboss_addon_register_addon_settings() {
-	require_once 'bp-addon-admin-setting.php';
+	require_once 'buddyboss-addon-admin-setting.php';
 }
 
 add_action( 'bp_register_admin_settings', 'buddyboss_addon_register_addon_settings', 99 );
