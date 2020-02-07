@@ -146,16 +146,16 @@ if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 		return MYPLUGIN_BB_Platform_Addon::instance();
 	}
 
-	function MYPLUGIN_BB_Platform_install_buddypress_notice() {
+	function MYPLUGIN_BB_Platform_install_bb_platform_notice() {
 		echo '<div class="error fade"><p style="line-height: 150%">';
 		_e('<strong>BuddyBoss Platform Add-on</strong></a> requires the BuddyBoss Platform plugin to work. Please <a href="https://buddyboss.com/platform/">install BuddyBoss Platform</a> first.', 'buddyboss-platform-addon');
 		echo '</p></div>';
 	}
 
 	function MYPLUGIN_BB_Platform_init() {
-		if ( ! function_exists( 'bp_is_active' ) ) {
-			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_install_buddypress_notice' );
-			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_install_buddypress_notice' );
+		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
+			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_install_bb_platform_notice' );
+			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_install_bb_platform_notice' );
 			return;
 		}
 
