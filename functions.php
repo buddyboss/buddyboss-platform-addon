@@ -149,7 +149,7 @@ if ( ! function_exists( 'MYPLUGIN_is_addon_field_enabled' ) ) {
 if ( ! function_exists( 'MYPLUGIN_bp_admin_setting_general_register_fields' ) ) {
     function MYPLUGIN_bp_admin_setting_general_register_fields( $setting ) {
 	    // Main General Settings Section
-	    $setting->add_section( 'bp_my_addon', __( 'My add on Settings', 'buddyboss-platform-addon' ) );
+	    $setting->add_section( 'MYPLUGIN_addon', __( 'My add on Settings', 'buddyboss-platform-addon' ) );
 
 	    $args          = array();
 	    $setting->add_field( 'bp-enable-my-addon', __( 'My add on', 'buddyboss-platform-addon' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
