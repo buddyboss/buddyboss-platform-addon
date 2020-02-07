@@ -24,8 +24,8 @@ if ( ! function_exists( 'MYPLUGIN_admin_menus' ) ) {
     function MYPLUGIN_admin_menus() {
 	    add_submenu_page(
 		    'bp-settings',
-		    __( 'Add On', 'buddyboss' ),
-		    __( 'Add On', 'buddyboss' ),
+		    __( 'Add-on', 'buddyboss' ),
+		    __( 'Add-on', 'buddyboss' ),
 		    'manage_options',
 		    'bp-addon',
 		    'MYPLUGIN_screen'
@@ -75,7 +75,7 @@ function MYPLUGIN_get_settings_sections() {
 	$settings = array(
 		'MYPLUGIN_settings_section' => array(
 			'page'  => 'addon',
-			'title' => __( 'Add On Settings', 'buddyboss' ),
+			'title' => __( 'Add-on Settings', 'buddyboss' ),
 		),
 	);
 
@@ -108,7 +108,7 @@ function MYPLUGIN_get_settings_fields() {
 	$fields['MYPLUGIN_settings_section'] = array(
 
 		'MYPLUGIN_field'  => array(
-			'title'             => __( 'Add On Field' ),
+			'title'             => __( 'Add-on Field' ),
 			'callback'          => 'MYPLUGIN_settings_callback_field',
 			'sanitize_callback' => 'absint',
 			'args'              => array(),

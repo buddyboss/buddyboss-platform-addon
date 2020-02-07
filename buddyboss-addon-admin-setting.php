@@ -19,7 +19,7 @@ class MYPLUGIN_Admin_Setting_Media extends BP_Admin_Setting_tab {
 
 	public function initialize() {
 
-		$this->tab_label = __( 'Add On', 'buddyboss' );
+		$this->tab_label = __( 'Add-on', 'buddyboss' );
 		$this->tab_name  = 'bp-addon';
 		$this->tab_order = 99;
 	}
