@@ -19,155 +19,133 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! function_exists( 'MYPLUGIN_admin_menus' ) ) {
+if ( ! class_exists( 'MYPLUGIN_BB_PLatform_Addon' ) ) {
 
-    function MYPLUGIN_admin_menus() {
-	    add_submenu_page(
-		    'bp-settings',
-		    __( 'Add-on', 'buddyboss' ),
-		    __( 'Add-on', 'buddyboss' ),
-		    'manage_options',
-		    'bp-addon',
-		    'MYPLUGIN_screen'
-	    );
-    }
+	/**
+	 * Main MYPlugin Custom Emails Class
+	 *
+	 * @class MYPLUGIN_BB_PLatform_Addon
+	 * @version	1.0.0
+	 */
+	final class MYPLUGIN_BB_PLatform_Addon {
 
-    add_action( 'bp_init', function() {
-	    add_action( bp_core_admin_hook(), 'MYPLUGIN_admin_menus', 99 );
-    } );
-}
+		/**
+		 * @var MYPLUGIN_BB_PLatform_Addon The single instance of the class
+		 * @since 1.0.0
+		 */
+		protected static $_instance = null;
 
-function MYPLUGIN_screen() {
-	?>
-    <div class="wrap">
-        <h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Addon', 'buddyboss' ) ); ?></h2>
-        <form action="" method="post">
-			<?php
-			settings_fields( 'bp-addon' );
-			bp_custom_pages_do_settings_sections( 'bp-addon' );
+		/**
+		 * Main MYPLUGIN_BB_PLatform_Addon Instance
+		 *
+		 * Ensures only one instance of MYPLUGIN_BB_PLatform_Addon is loaded or can be loaded.
+		 *
+		 * @since 1.0.0
+		 * @static
+		 * @see MYPLUGIN_BB_PLatform_Addon()
+		 * @return MYPLUGIN_BB_PLatform_Addon - Main instance
+		 */
+		public static function instance() {
+			if ( is_null( self::$_instance ) ) {
+				self::$_instance = new self();
+			}
+			return self::$_instance;
+		}
 
-			printf(
-				'<p class="submit">
-				<input type="submit" name="submit" class="button-primary" value="%s" />
-			</p>',
-				esc_attr__( 'Save Settings', 'buddyboss' )
-			);
-			?>
-        </form>
-    </div>
+		/**
+		 * Cloning is forbidden.
+		 * @since 1.0.0
+		 */
+		public function __clone() {
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'buddyboss-platform-addon' ), '1.0.0' );
+		}
+		/**
+		 * Unserializing instances of this class is forbidden.
+		 * @since 1.0.0
+		 */
+		public function __wakeup() {
+			_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'buddyboss-platform-addon' ), '1.0.0' );
+		}
 
-	<?php
-}
+		/**
+		 * MYPLUGIN_BB_PLatform_Addon Constructor.
+		 */
+		public function __construct() {
+			$this->define_constants();
+			$this->includes();
+			// Set up localisation.
+			$this->load_plugin_textdomain();
+		}
 
-function MYPLUGIN_admin_enqueue_script() {
-	wp_enqueue_style( 'buddyboss-addon-admin-css', plugin_dir_url( __FILE__ ) . 'style.css' );
-}
-add_action( 'admin_enqueue_scripts', 'MYPLUGIN_admin_enqueue_script' );
+		/**
+		 * Define WCE Constants
+		 */
+		private function define_constants() {
+			$this->define( 'MYPLUGIN_BB_ADDON_PLUGIN_FILE', __FILE__ );
+			$this->define( 'MYPLUGIN_BB_ADDON_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+			$this->define( 'MYPLUGIN_BB_ADDON_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+			$this->define( 'MYPLUGIN_BB_ADDON_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		}
 
-function MYPLUGIN_register_addon_settings() {
-	require_once 'buddyboss-addon-admin-setting.php';
-}
+		/**
+		 * Define constant if not already set
+		 * @param  string $name
+		 * @param  string|bool $value
+		 */
+		private function define( $name, $value ) {
+			if ( ! defined( $name ) ) {
+				define( $name, $value );
+			}
+		}
 
-add_action( 'bp_register_admin_settings', 'MYPLUGIN_register_addon_settings', 99 );
+		/**
+		 * Include required core files used in admin and on the frontend.
+		 */
+		public function includes() {
+			include_once( 'functions.php' );
+		}
 
-function MYPLUGIN_get_settings_sections() {
+		/**
+		 * Get the plugin url.
+		 * @return string
+		 */
+		public function plugin_url() {
+			return untrailingslashit( plugins_url( '/', __FILE__ ) );
+		}
 
-	$settings = array(
-		'MYPLUGIN_settings_section' => array(
-			'page'  => 'addon',
-			'title' => __( 'Add-on Settings', 'buddyboss' ),
-		),
-	);
+		/**
+		 * Get the plugin path.
+		 * @return string
+		 */
+		public function plugin_path() {
+			return untrailingslashit( plugin_dir_path( __FILE__ ) );
+		}
 
-	return (array) apply_filters( 'MYPLUGIN_get_settings_sections', $settings );
-}
+		/**
+		 * Load Localisation files.
+		 *
+		 * Note: the first-loaded translation file overrides any following ones if the same translation is present.
+		 */
+		public function load_plugin_textdomain() {
+			$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
+			$locale = apply_filters( 'plugin_locale', $locale, 'buddyboss-platform-addon' );
 
-function MYPLUGIN_get_settings_fields_for_section( $section_id = '' ) {
-
-	// Bail if section is empty
-	if ( empty( $section_id ) ) {
-		return false;
+			unload_textdomain( 'buddyboss-platform-addon' );
+			load_textdomain( 'buddyboss-platform-addon', WP_LANG_DIR . '/' . plugin_basename( dirname( __FILE__ ) ) . '/' . plugin_basename( dirname( __FILE__ ) ) . '-' . $locale . '.mo' );
+			load_plugin_textdomain( 'buddyboss-platform-addon', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+		}
 	}
 
-	$fields = MYPLUGIN_get_settings_fields();
-	$retval = isset( $fields[ $section_id ] ) ? $fields[ $section_id ] : false;
+	/**
+	 * Returns the main instance of MYPLUGIN_BB_PLatform_Addon to prevent the need to use globals.
+	 *
+	 * @since  1.0.0
+	 * @return MYPLUGIN_BB_PLatform_Addon
+	 */
+	function MYPLUGIN_BB_PLatform_Addon() {
+		return MYPLUGIN_BB_PLatform_Addon::instance();
+	}
 
-	return (array) apply_filters( 'MYPLUGIN_get_settings_fields_for_section', $retval, $section_id );
+	add_action( 'bp_loaded', 'MYPLUGIN_BB_PLatform_Addon' );
 }
 
-/**
- * Get all of the settings fields.
- *
- * @since BuddyBoss Platform Add-on 1.0.0
- * @return array
- */
-function MYPLUGIN_get_settings_fields() {
-
-	$fields = array();
-
-	$fields['MYPLUGIN_settings_section'] = array(
-
-		'MYPLUGIN_field'  => array(
-			'title'             => __( 'My Field' ),
-			'callback'          => 'MYPLUGIN_settings_callback_field',
-			'sanitize_callback' => 'absint',
-			'args'              => array(),
-		),
-
-	);
-
-	return (array) apply_filters( 'MYPLUGIN_get_settings_fields', $fields );
-}
-
-function MYPLUGIN_settings_callback_field() {
-	?>
-    <input name="MYPLUGIN_field"
-           id="MYPLUGIN_field"
-           type="checkbox"
-           value="1"
-		<?php checked( MYPLUGIN_is_addon_field_enabled() ); ?>
-    />
-    <label for="MYPLUGIN_field">
-		<?php _e( 'Enable my option' ); ?>
-    </label>
-	<?php
-}
-
-function MYPLUGIN_is_addon_field_enabled( $default = 1 ) {
-	return (bool) apply_filters( 'MYPLUGIN_is_addon_field_enabled', (bool) get_option( 'MYPLUGIN_field', $default ) );
-}
-
-/***************************** Add section in current settings ***************************************/
-
-/**
- * Register fields for settings hooks
- * bp_admin_setting_general_register_fields
- * bp_admin_setting_activity_register_fields
- * bp_admin_setting_friends_register_fields
- * bp_admin_setting_groups_register_fields
- * bp_admin_setting_invites_register_fields
- * bp_admin_setting_media_register_fields
- * bp_admin_setting_messages_register_fields
- * bp_admin_setting_registration_register_fields
- * bp_admin_setting_search_register_fields
- * bp_admin_setting_xprofile_register_fields
- */
-add_action( 'bp_admin_setting_general_register_fields', function( $setting ){
-	// Main General Settings Section
-	$setting->add_section( 'MYPLUGIN_addon', __( 'Add-on Settings' ) );
-
-	$args          = array();
-	$setting->add_field( 'bp-enable-my-addon', __( 'My Field' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
-} );
-
-
-function MYPLUGIN_admin_general_setting_callback_my_addon() {
-	?>
-    <input id="bp-enable-my-addon" name="bp-enable-my-addon" type="checkbox" value="1" <?php checked( MYPLUGIN_enable_my_addon() ); ?> />
-    <label for="bp-enable-my-addon"><?php _e( 'Enable my option', 'buddyboss' ); ?></label>
-    <?php
-}
-
-function MYPLUGIN_enable_my_addon( $default = false ) {
-	return (bool) apply_filters( 'MYPLUGIN_enable_my_addon', (bool) bp_get_option( 'bp-enable-my-addon', $default ) );
-}
