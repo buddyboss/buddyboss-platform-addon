@@ -108,7 +108,7 @@ function MYPLUGIN_get_settings_fields() {
 	$fields['MYPLUGIN_settings_section'] = array(
 
 		'MYPLUGIN_field'  => array(
-			'title'             => __( 'Add-on Field' ),
+			'title'             => __( 'My Field' ),
 			'callback'          => 'MYPLUGIN_settings_callback_field',
 			'sanitize_callback' => 'absint',
 			'args'              => array(),
@@ -128,7 +128,7 @@ function MYPLUGIN_settings_callback_field() {
 		<?php checked( MYPLUGIN_is_addon_field_enabled() ); ?>
     />
     <label for="MYPLUGIN_field">
-		<?php _e( 'Allow add on field' ); ?>
+		<?php _e( 'Enable my option' ); ?>
     </label>
 	<?php
 }
@@ -154,17 +154,17 @@ function MYPLUGIN_is_addon_field_enabled( $default = 1 ) {
  */
 add_action( 'bp_admin_setting_general_register_fields', function( $setting ){
 	// Main General Settings Section
-	$setting->add_section( 'bp_my_addon', __( 'My add on Settings' ) );
+	$setting->add_section( 'bp_my_addon', __( 'Add-on Settings' ) );
 
 	$args          = array();
-	$setting->add_field( 'bp-enable-my-addon', __( 'My add on' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
+	$setting->add_field( 'bp-enable-my-addon', __( 'My Field' ), 'MYPLUGIN_admin_general_setting_callback_my_addon', 'intval', $args );
 } );
 
 
 function MYPLUGIN_admin_general_setting_callback_my_addon() {
 	?>
     <input id="bp-enable-my-addon" name="bp-enable-my-addon" type="checkbox" value="1" <?php checked( MYPLUGIN_enable_my_addon() ); ?> />
-    <label for="bp-enable-my-addon"><?php _e( 'Allow my add on setting', 'buddyboss' ); ?></label>
+    <label for="bp-enable-my-addon"><?php _e( 'Enable my option', 'buddyboss' ); ?></label>
     <?php
 }
 
