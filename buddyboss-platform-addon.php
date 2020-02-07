@@ -19,31 +19,31 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'MYPLUGIN_BB_PLatform_Addon' ) ) {
+if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 
 	/**
 	 * Main MYPlugin Custom Emails Class
 	 *
-	 * @class MYPLUGIN_BB_PLatform_Addon
+	 * @class MYPLUGIN_BB_Platform_Addon
 	 * @version	1.0.0
 	 */
-	final class MYPLUGIN_BB_PLatform_Addon {
+	final class MYPLUGIN_BB_Platform_Addon {
 
 		/**
-		 * @var MYPLUGIN_BB_PLatform_Addon The single instance of the class
+		 * @var MYPLUGIN_BB_Platform_Addon The single instance of the class
 		 * @since 1.0.0
 		 */
 		protected static $_instance = null;
 
 		/**
-		 * Main MYPLUGIN_BB_PLatform_Addon Instance
+		 * Main MYPLUGIN_BB_Platform_Addon Instance
 		 *
-		 * Ensures only one instance of MYPLUGIN_BB_PLatform_Addon is loaded or can be loaded.
+		 * Ensures only one instance of MYPLUGIN_BB_Platform_Addon is loaded or can be loaded.
 		 *
 		 * @since 1.0.0
 		 * @static
-		 * @see MYPLUGIN_BB_PLatform_Addon()
-		 * @return MYPLUGIN_BB_PLatform_Addon - Main instance
+		 * @see MYPLUGIN_BB_Platform_Addon()
+		 * @return MYPLUGIN_BB_Platform_Addon - Main instance
 		 */
 		public static function instance() {
 			if ( is_null( self::$_instance ) ) {
@@ -68,7 +68,7 @@ if ( ! class_exists( 'MYPLUGIN_BB_PLatform_Addon' ) ) {
 		}
 
 		/**
-		 * MYPLUGIN_BB_PLatform_Addon Constructor.
+		 * MYPLUGIN_BB_Platform_Addon Constructor.
 		 */
 		public function __construct() {
 			$this->define_constants();
@@ -137,15 +137,15 @@ if ( ! class_exists( 'MYPLUGIN_BB_PLatform_Addon' ) ) {
 	}
 
 	/**
-	 * Returns the main instance of MYPLUGIN_BB_PLatform_Addon to prevent the need to use globals.
+	 * Returns the main instance of MYPLUGIN_BB_Platform_Addon to prevent the need to use globals.
 	 *
 	 * @since  1.0.0
-	 * @return MYPLUGIN_BB_PLatform_Addon
+	 * @return MYPLUGIN_BB_Platform_Addon
 	 */
-	function MYPLUGIN_BB_PLatform_Addon() {
-		return MYPLUGIN_BB_PLatform_Addon::instance();
+	function MYPLUGIN_BB_Platform_Addon() {
+		return MYPLUGIN_BB_Platform_Addon::instance();
 	}
 
-	add_action( 'bp_loaded', 'MYPLUGIN_BB_PLatform_Addon' );
+	add_action( 'bp_loaded', 'MYPLUGIN_BB_Platform_Addon' );
 }
 
