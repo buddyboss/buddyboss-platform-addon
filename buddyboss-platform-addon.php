@@ -148,14 +148,33 @@ if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 
 	function MYPLUGIN_BB_Platform_install_bb_platform_notice() {
 		echo '<div class="error fade"><p>';
-		_e('<strong>BuddyBoss Platform Add-on</strong> requires the BuddyBoss Platform plugin to work. Please <a href="https://buddyboss.com/platform/">install BuddyBoss Platform</a> first.', 'buddyboss-platform-addon');
+		_e('<strong>BuddyBoss Platform Add-on</strong></a> requires the BuddyBoss Platform plugin to work. Please <a href="https://buddyboss.com/platform/" target="_blank">install BuddyBoss Platform</a> first.', 'buddyboss-platform-addon');
 		echo '</p></div>';
+	}
+
+	function MYPLUGIN_BB_Platform_update_bb_platform_notice() {
+		echo '<div class="error fade"><p>';
+		_e('<strong>BuddyBoss Platform Add-on</strong></a> requires the BuddyBoss Platform plugin version 1.2.6 to work. Please <a href="https://buddyboss.com/platform/" target="_blank">update BuddyBoss Platform</a>.', 'buddyboss-platform-addon');
+		echo '</p></div>';
+	}
+
+	function MYPLUGIN_BB_Platform_is_active() {
+		if ( defined( 'BP_PLATFORM_VERSION' ) && version_compare( BP_PLATFORM_VERSION,'1.2.6', '>=' ) ) {
+			return true;
+		}
+		return false;
 	}
 
 	function MYPLUGIN_BB_Platform_init() {
 		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
 			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_install_bb_platform_notice' );
 			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_install_bb_platform_notice' );
+			return;
+		}
+
+		if ( version_compare( BP_PLATFORM_VERSION,'1.2.6', '<' ) ) {
+			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
+			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
 			return;
 		}
 
