@@ -8,13 +8,13 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'MYPLUGIN_Admin_Setting_Media' ) ) {
+if ( ! class_exists( 'MYPLUGIN_Admin_Setting_Tab' ) ) {
 	/**
 	 * Main Search Settings class.
 	 *
 	 * @since 1.0.0
 	 */
-	class MYPLUGIN_Admin_Setting_Media extends BP_Admin_Setting_tab {
+	class MYPLUGIN_Admin_Setting_Tab extends BP_Admin_Setting_tab {
 
 		public function initialize() {
 
@@ -60,5 +60,5 @@ if ( ! class_exists( 'MYPLUGIN_Admin_Setting_Media' ) ) {
 
 	}
 
-	return new MYPLUGIN_Admin_Setting_Media;
+	return new MYPLUGIN_Admin_Setting_Tab;
 }

@@ -140,6 +140,7 @@ if ( ! function_exists( 'MYPLUGIN_is_addon_field_enabled' ) ) {
  * bp_admin_setting_groups_register_fields
  * bp_admin_setting_forums_register_fields
  * bp_admin_setting_activity_register_fields
+ * bp_admin_setting_forums_register_fields
  * bp_admin_setting_media_register_fields
  * bp_admin_setting_friends_register_fields
  * bp_admin_setting_invites_register_fields
@@ -194,3 +195,15 @@ if ( ! function_exists( 'MYPLUGIN_modify_plugin_action_links' ) ) {
 	add_filter( 'plugin_action_links', 'MYPLUGIN_modify_plugin_action_links', 10, 2 );
 	add_filter( 'network_admin_plugin_action_links', 'MYPLUGIN_modify_plugin_action_links', 10, 2 );
 }
+
+
+/**************************************** MY PLUGIN INTEGRATION ************************************/
+
+/**
+ * Set up the my plugin integration.
+ */
+function MYPLUGIN_register_integration() {
+	require_once dirname( __FILE__ ) . '/integration/buddyboss-integration.php';
+	buddypress()->integrations['addon'] = new MYPLUGIN_BuddyBoss_Integration();
+}
+add_action( 'bp_setup_integrations', 'MYPLUGIN_register_integration' );
