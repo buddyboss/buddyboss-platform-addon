@@ -172,11 +172,11 @@ if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 			return;
 		}
 
-		if ( version_compare( BP_PLATFORM_VERSION,'1.2.6', '<' ) ) {
-			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
-			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
-			return;
-		}
+//		if ( version_compare( BP_PLATFORM_VERSION,'1.2.6', '<' ) ) {
+//			add_action( 'admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
+//			add_action( 'network_admin_notices', 'MYPLUGIN_BB_Platform_update_bb_platform_notice' );
+//			return;
+//		}
 
 		add_action( 'bp_loaded', 'MYPLUGIN_BB_Platform_Addon', 1 );
 	}

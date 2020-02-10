@@ -2,62 +2,12 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! function_exists( 'MYPLUGIN_admin_menus' ) ) {
-
-	function MYPLUGIN_admin_menus() {
-		add_submenu_page(
-			'bp-settings',
-			__( 'Add-on', 'buddyboss-platform-addon' ),
-			__( 'Add-on', 'buddyboss-platform-addon' ),
-			'manage_options',
-			'bp-addon',
-			'MYPLUGIN_admin_settings_screen'
-		);
-	}
-
-	add_action( 'bp_init', function() {
-		add_action( bp_core_admin_hook(), 'MYPLUGIN_admin_menus', 99 );
-	} );
-}
-
-if ( ! function_exists( 'MYPLUGIN_admin_settings_screen' ) ) {
-	function MYPLUGIN_admin_settings_screen() {
-		?>
-        <div class="wrap">
-            <h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Addon', 'buddyboss-platform-addon' ) ); ?></h2>
-            <form action="" method="post">
-				<?php
-				settings_fields( 'bp-addon' );
-				bp_custom_pages_do_settings_sections( 'bp-addon' );
-
-				printf(
-					'<p class="submit">
-				<input type="submit" name="submit" class="button-primary" value="%s" />
-			</p>',
-					esc_attr__( 'Save Settings', 'buddyboss-platform-addon' )
-				);
-				?>
-            </form>
-        </div>
-
-		<?php
-	}
-}
-
 if ( ! function_exists( 'MYPLUGIN_admin_enqueue_script' ) ) {
 	function MYPLUGIN_admin_enqueue_script() {
 		wp_enqueue_style( 'buddyboss-addon-admin-css', plugin_dir_url( __FILE__ ) . 'style.css' );
 	}
 
 	add_action( 'admin_enqueue_scripts', 'MYPLUGIN_admin_enqueue_script' );
-}
-
-if ( ! function_exists( 'MYPLUGIN_register_addon_settings' ) ) {
-	function MYPLUGIN_register_addon_settings() {
-		require_once 'buddyboss-addon-admin-setting.php';
-	}
-
-	add_action( 'bp_register_admin_settings', 'MYPLUGIN_register_addon_settings', 99 );
 }
 
 if ( ! function_exists( 'MYPLUGIN_get_settings_sections' ) ) {

@@ -4,7 +4,6 @@ It is required for adding icons to your admin settings.
 */
 
 .bp-admin-card.section-MYPLUGIN_addon h2:before,
-.bp-admin-card.section-MYPLUGIN_settings_section h2:before,
-.bp-admin-card.section-MYPLUGIN_integration_section h2:before {
+.bp-admin-card.section-MYPLUGIN_settings_section h2:before {
 	background-image: url('images/feather.svg');
 }
