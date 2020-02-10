@@ -124,28 +124,6 @@ if ( ! function_exists( 'MYPLUGIN_enable_my_addon' ) ) {
 	}
 }
 
-if ( ! function_exists( 'MYPLUGIN_modify_plugin_action_links' ) ) {
-	function MYPLUGIN_modify_plugin_action_links( $links, $file ) {
-
-		// Return normal links if not BuddyPress.
-		if ( MYPLUGIN_BB_ADDON_PLUGIN_BASENAME != $file ) {
-			return $links;
-		}
-
-		// Add a few links to the existing links array.
-		return array_merge(
-			$links,
-			array(
-				'settings' => '<a href="' . esc_url( bp_get_admin_url( 'admin.php?page=bp-settings&tab=bp-addon' ) ) . '">' . __( 'Settings', 'buddyboss-platform-addon' ) . '</a>',
-			)
-		);
-	}
-
-// Add link to settings page.
-	add_filter( 'plugin_action_links', 'MYPLUGIN_modify_plugin_action_links', 10, 2 );
-	add_filter( 'network_admin_plugin_action_links', 'MYPLUGIN_modify_plugin_action_links', 10, 2 );
-}
-
 
 /**************************************** MY PLUGIN INTEGRATION ************************************/
 
