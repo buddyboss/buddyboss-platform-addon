@@ -6,9 +6,11 @@ It is required for adding icons to your admin settings.
 /* Integration Tab Icon */
 .bp-admin-card.section-MYPLUGIN_settings_section h2:before {
 	background-image: url('images/feather.svg');
+	background-size: 18px 18px;
 }
 
 /* Component Settings Icon */
 .bp-admin-card.section-MYPLUGIN_addon h2:before {
-	background-image: url('images/feather.svg');	
+	background-image: url('images/feather.svg');
+	background-size: 18px 18px;
 }
