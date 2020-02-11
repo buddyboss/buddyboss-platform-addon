@@ -14,6 +14,10 @@ defined( 'ABSPATH' ) || exit;
  * @since BuddyBoss 1.1.5
  */
 class MYPLUGIN_BuddyBoss_Admin_Integration_Tab extends BP_Admin_Integration_tab {
+	public function initialize() {
+		$this->tab_order       = 60;
+	}
+
 	public function is_active() {
 		return true;
 	}

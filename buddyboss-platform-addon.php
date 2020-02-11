@@ -178,9 +178,9 @@ if ( ! class_exists( 'MYPLUGIN_BB_Platform_Addon' ) ) {
 			return;
 		}
 
-		add_action( 'bp_loaded', 'MYPLUGIN_BB_Platform_Addon', 1 );
+		MYPLUGIN_BB_Platform_Addon();
 	}
 
-	add_action( 'plugins_loaded', 'MYPLUGIN_BB_Platform_init' );
+	add_action( 'plugins_loaded', 'MYPLUGIN_BB_Platform_init', 9 );
 }
 
