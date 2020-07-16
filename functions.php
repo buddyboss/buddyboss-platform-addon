@@ -90,7 +90,6 @@ if ( ! function_exists( 'MYPLUGIN_is_addon_field_enabled' ) ) {
  * bp_admin_setting_groups_register_fields
  * bp_admin_setting_forums_register_fields
  * bp_admin_setting_activity_register_fields
- * bp_admin_setting_forums_register_fields
  * bp_admin_setting_media_register_fields
  * bp_admin_setting_friends_register_fields
  * bp_admin_setting_invites_register_fields
